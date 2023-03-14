@@ -10,22 +10,29 @@ async function getAllProducts() {
     console.log(error);
   }
 }
-getAllProducts();
 
 function printAllProducts(localData) {
   const products = document.querySelector(".cards");
   let html = "";
   for (const card of localData.products) {
     html += `
-    <div class="card">
+    <div class="card shadow hover:shadow-lg hover:shadow-red-500 shadow-red-500">
     <div class="card__img">
-      <img src="${card.image}" class='hover:animate-ping' alt="">
+      <img src="${card.image}" class='hover:animate-ping duration 5s' alt="">
     </div>
     <div class="card__info">
-    ${card.quantity? ` <i class="bx bx-plus  hover:bg-red-500 transition duration-700 ease-in-out" id="${card.id}"></i>`: ''}
+    ${
+      card.quantity
+        ? ` <i class="bx bx-plus  hover:bg-red-500 transition duration-700 ease-in-out" id="${card.id}"></i>`
+        : ""
+    }
      
       <h3>$ ${card.price}.00
-      ${card.quantity ? ` <span>Stock:${card.quantity}  </span>` : ` <span class="soldOut">Sold out </span>`}
+      ${
+        card.quantity
+          ? ` <span>Stock:${card.quantity}  </span>`
+          : ` <span class="soldOut">Sold out </span>`
+      }
      </h3>
       <p>${card.name}</p>
     </div>
@@ -39,7 +46,7 @@ function printAllProducts(localData) {
 function handleShowCart() {
   const iconCartHtml = document.querySelector(".bx-shopping-bag");
   const cartHtml = document.querySelector(".cart");
-console.log(iconCartHtml)
+  console.log(iconCartHtml);
   iconCartHtml.addEventListener("click", function () {
     cartHtml.classList.toggle("cart__show");
   });
@@ -53,11 +60,9 @@ function handleCloseCart() {
   });
 }
 
-
 function addToCartFromProducts(localData) {
   const productsHtml = document.querySelector(".cards");
   productsHtml.addEventListener("click", function (e) {
-    
     if (e.target.classList.contains("bx-plus")) {
       const id = Number(e.target.id);
 
@@ -76,19 +81,20 @@ function addToCartFromProducts(localData) {
       window.localStorage.setItem("cart", JSON.stringify(localData.cart));
       printProductsInCart(localData);
       printTotal(localData);
-      handlePrintAmountProducts(localData)
+      handlePrintAmountProducts(localData);
     }
   });
 }
-function printProductsInCart(localData){
+function printProductsInCart(localData) {
   const cardProducts = document.querySelector(".cart__products");
-  
+
   let html = "";
 
   for (const product in localData.cart) {
     const { quantity, price, name, image, id, amount } =
       localData.cart[product];
-      html += `
+      let total = amount*price
+    html += `
         <div class='cart__product'>         
             <div class='cart__product--img'>
               <img src= '${image}' alt= 'imagen' />
@@ -97,10 +103,10 @@ function printProductsInCart(localData){
             <h4>
             </h4>
             <p>
-            Stock: ${quantity} | 
+            Stock: ${quantity} | ${price}
             <span>$</span>
             </p>
-            <p>Subtotal: $ </p>
+            <p>Subtotal: $ ${total}</p>
             <div class='cart__product--action' id = '${id}'>
             <i class='bx bx-minus'></i>
             <span>${amount} unit</span>
@@ -109,133 +115,145 @@ function printProductsInCart(localData){
             </div>
             </div>
         </div>
-      `
+      `;
   }
-  cardProducts.innerHTML = html
-
+  cardProducts.innerHTML = html;
 }
 
-
-function handleProductsInCart(localData){
-  const cartProducts = document.querySelector('.cart__products');
-  cartProducts.addEventListener('click', function(e){
-   if(e.target.classList.contains('bx-minus')){    
-    const id =  Number(e.target.parentElement.id)
-    if(localData.cart[id].amount > 1){
-      localData.cart[id].amount--
-    }else{
-      if( localData.cart[id].amount === 1){
-        delete localData.cart[id]
+function handleProductsInCart(localData) {
+  const cartProducts = document.querySelector(".cart__products");
+  cartProducts.addEventListener("click", function (e) {
+    if (e.target.classList.contains("bx-minus")) {
+      const id = Number(e.target.parentElement.id);
+      if (localData.cart[id].amount > 1) {
+        localData.cart[id].amount--;
+      } else {
+        if (localData.cart[id].amount === 1) {
+          delete localData.cart[id];
+        }
       }
     }
-   
-   }
-   if(e.target.classList.contains('bx-plus')){
-
-    const id =  Number(e.target.parentElement.id)
-    const productFind = localData.products.find(
-      (product) => product.id === id
-    );
-    if (localData.cart[productFind.id]) {
-      if (productFind.quantity === localData.cart[productFind.id].amount)
-        return alert("No hay mas");
+    if (e.target.classList.contains("bx-plus")) {
+      const id = Number(e.target.parentElement.id);
+      const productFind = localData.products.find(
+        (product) => product.id === id
+      );
+      if (localData.cart[productFind.id]) {
+        if (productFind.quantity === localData.cart[productFind.id].amount)
+          return alert("No hay mas");
+      }
+      localData.cart[id].amount++;
     }
-    localData.cart[id].amount++
-   }
-   if(e.target.classList.contains('bx-trash-alt')){
-    const id =  Number(e.target.parentElement.id)
-   
-      delete localData.cart[id]
+    if (e.target.classList.contains("bx-trash-alt")) {
+      const id = Number(e.target.parentElement.id);
 
-   }
-   window.localStorage.setItem('cart', JSON.stringify(localData.cart))
-   printProductsInCart(localData);
-   printTotal(localData);
-   handlePrintAmountProducts(localData);
-  })
+      delete localData.cart[id];
+    }
+    window.localStorage.setItem("cart", JSON.stringify(localData.cart));
+    printProductsInCart(localData);
+    printTotal(localData);
+    handlePrintAmountProducts(localData);
+  });
 }
 
-function printTotal(localData){
-
-  const infoTotal = document.querySelector('.info__total');
-  const infoAmount = document.querySelector('.info__amount');
+function printTotal(localData) {
+  const infoTotal = document.querySelector(".info__total");
+  const infoAmount = document.querySelector(".info__amount");
 
   let totalProducts = 0;
   let amountProducts = 0;
 
-  for(const product in localData.cart){
-   const {amount, price} = localData.cart[product];
-   totalProducts += price * amount;
-   amountProducts += amount;
+  for (const product in localData.cart) {
+    const { amount, price } = localData.cart[product];
+    totalProducts += price * amount;
+    amountProducts += amount;
   }
-  infoAmount.textContent = amountProducts + ' units';
-  infoTotal.textContent = '$' + totalProducts + '.00';
+  infoAmount.textContent = amountProducts + " units";
+  infoTotal.textContent = "$" + totalProducts + ".00";
 }
 
-function handleEmptyProduct(localData){
-  const btnBuy = document.querySelector('.btn__buy');
-  btnBuy.addEventListener('click', function(){
-    if(!Object.values(localData.cart).length){
-      return alert('El carrito esta vacio');
-
+function handleEmptyProduct(localData) {
+  const btnBuy = document.querySelector(".btn__buy");
+  btnBuy.addEventListener("click", function () {
+    if (!Object.values(localData.cart).length) {
+      return alert("El carrito esta vacio");
     }
-    const response = confirm('Seguro que quieres comprar?');
-    if(!response) return;
+    const response = confirm("Seguro que quieres comprar?");
+    if (!response) return;
 
     const currentProducts = [];
 
-    for(const product of localData.products){
+    for (const product of localData.products) {
       const productCart = localData.cart[product.id];
-      if(product.id === productCart?.id){
+      if (product.id === productCart?.id) {
         currentProducts.push({
           ...product,
-          quantity:product.quantity - productCart.amount
-        })
-      }else{
+          quantity: product.quantity - productCart.amount,
+        });
+      } else {
         currentProducts.push(product);
       }
     }
     localData.products = currentProducts;
-    localData.cart = {}
+    localData.cart = {};
 
-    window.localStorage.setItem('products', JSON.stringify(localData.products))
-    window.localStorage.setItem('cart', JSON.stringify(localData.cart))
-    
+    window.localStorage.setItem("products", JSON.stringify(localData.products));
+    window.localStorage.setItem("cart", JSON.stringify(localData.cart));
+
     printTotal(localData);
     printProductsInCart(localData);
     printAllProducts(localData);
     handlePrintAmountProducts(localData);
-  })
+  });
 }
 
-function handlePrintAmountProducts(localData){
-  const amountProducts = document.querySelector('.totalProducts')
+function handlePrintAmountProducts(localData) {
+  const amountProducts = document.querySelector(".totalProducts");
   let amount = 0;
   for (const product in localData.cart) {
-      amount += localData.cart[product].amount;
+    amount += localData.cart[product].amount;
   }
   amountProducts.textContent = amount;
-  
- 
 }
-function handleShowMenu(){
-  const dashBoard = document.querySelector('.bxs-dashboard')
-  const showMenu = document.querySelector('.menu__mobile')
-  console.log(showMenu)
-  console.log(dashBoard)
-  dashBoard.addEventListener('click', function(e) {
-      
-    showMenu.classList.toggle('show__menu__mobile')
-   
-  })
+function handleShowMenu() {
+  const dashBoard = document.querySelector(".bxs-dashboard");
+  const showMenu = document.querySelector(".menu__mobile");
+  console.log(showMenu);
+  console.log(dashBoard);
+  dashBoard.addEventListener("click", function (e) {
+    showMenu.classList.toggle("show__menu__mobile");
+  });
 }
 
-function handleCloseMenu(){
-  const close = document.querySelector('.close__menu');
-  const showMenu = document.querySelector('.menu__mobile')
-  close.addEventListener('click', function(e) {
-    showMenu.classList.toggle('show__menu__mobile')
-  })
+function scroll() {
+  window.onscroll = function () {
+    if (document.documentElement.scrollTop > 20) {
+      document.querySelector("header").classList.add("header_show");
+    } else {
+      document.querySelector("header").classList.remove("header_show");
+    }
+  };
+  document.querySelector(".navbar");
+}
+
+function handleCloseMenu() {
+  const close = document.querySelector(".close__menu");
+  const showMenu = document.querySelector(".menu__mobile");
+  close.addEventListener("click", function (e) {
+    showMenu.classList.toggle("show__menu__mobile");
+  });
+}
+function darkMode() {
+  const darkMode = document.querySelector(".bx-moon");
+  const body = document.querySelector("body");
+  const head = document.querySelector('header')
+  const menu = document.querySelector('.menu__mobile')
+  
+ darkMode.addEventListener("click", function (e) {
+    body.classList.toggle("darkMode");
+    head.classList.toggle("darkMode");
+    menu.classList.toggle("darkMode");    
+  });
 }
 
 async function main() {
@@ -245,7 +263,7 @@ async function main() {
       (await getAllProducts()),
     cart: JSON.parse(window.localStorage.getItem("cart")) || {},
   };
-
+  getAllProducts();
   printAllProducts(localData);
   addToCartFromProducts(localData);
   printProductsInCart(localData);
@@ -257,18 +275,7 @@ async function main() {
   handleCloseCart();
   handleShowMenu();
   handleCloseMenu();
-
-  window.onscroll = function(){
-    if (document.documentElement.scrollTop > 20) {
-      document.querySelector('header')
-          .classList.add('header_show');
-  } else {
-          document.querySelector('header')
-              .classList.remove('header_show');
-      }
-  }
-  document.querySelector('.navbar')
-
-  }
-
+  scroll();
+  darkMode();
+}
 main();

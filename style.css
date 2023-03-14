@@ -1,5 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap");
-
+    
 * {
   padding: 0;
   margin: 0;
@@ -151,7 +151,7 @@ svg {
 }
 
 .home_body-price {
-  color: hsl(354, 78%, 60%);
+  color: var(--red-color);
   font-weight: 700;
   font-size: 1.5rem;
 }
@@ -291,7 +291,7 @@ svg {
 .cart .bx-x {
   font-size: 1.5rem;
   position: absolute;
-  top: 0.1rem;
+  top: 0.5rem;
   right: 0.5rem;
   cursor: pointer;
   color: black;
@@ -309,7 +309,7 @@ svg {
 }
 
 .cart__products::-webkit-scrollbar-thumb {
-  background-color: hsl(354, 78%, 60%);
+  background-color: var(--red-color);
   border-radius: 20px;
   border: 1px;
 }
@@ -356,6 +356,10 @@ svg {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+}
+.darkMode{
+  background-color:  hsl(0, 0%, 28%);
+  color: rgb(132, 128, 128);
 }
 
 /* -------------------------------FOOTER------------------------------- */
