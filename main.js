@@ -19,12 +19,12 @@ function printAllProducts(localData) {
     html += `
     <div class="card">
     <div class="card__img">
-      <img src="${card.image}" alt="">
+      <img src="${card.image}" class='hover:animate-ping' alt="">
     </div>
     <div class="card__info">
-    ${card.quantity? ` <i class="bx bx-plus" id="${card.id}"></i>`: ''}
+    ${card.quantity? ` <i class="bx bx-plus  hover:bg-red-500 transition duration-700 ease-in-out" id="${card.id}"></i>`: ''}
      
-      <h3>${card.price}
+      <h3>$ ${card.price}.00
       ${card.quantity ? ` <span>Stock:${card.quantity}  </span>` : ` <span class="soldOut">Sold out </span>`}
      </h3>
       <p>${card.name}</p>
