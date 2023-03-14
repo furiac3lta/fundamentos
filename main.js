@@ -39,7 +39,7 @@ function printAllProducts(localData) {
 function handleShowCart() {
   const iconCartHtml = document.querySelector(".bx-shopping-bag");
   const cartHtml = document.querySelector(".cart");
-
+console.log(iconCartHtml)
   iconCartHtml.addEventListener("click", function () {
     cartHtml.classList.toggle("cart__show");
   });
@@ -57,7 +57,7 @@ function handleCloseCart() {
 function addToCartFromProducts(localData) {
   const productsHtml = document.querySelector(".cards");
   productsHtml.addEventListener("click", function (e) {
-    console.log(e.target.id)
+    
     if (e.target.classList.contains("bx-plus")) {
       const id = Number(e.target.id);
 
@@ -82,7 +82,7 @@ function addToCartFromProducts(localData) {
 }
 function printProductsInCart(localData){
   const cardProducts = document.querySelector(".cart__products");
-  console.log(cardProducts)
+  
   let html = "";
 
   for (const product in localData.cart) {
@@ -218,6 +218,24 @@ function handlePrintAmountProducts(localData){
   
  
 }
+function handleShowMenu(){
+  const dashBoard = document.querySelector('.bxs-dashboard')
+  const showMenu = document.querySelector('.menu__mobile')
+  console.log(showMenu)
+  console.log(dashBoard)
+  dashBoard.addEventListener('click', function(e) {
+      
+    showMenu.classList.toggle('show__menu__mobile')
+  })
+}
+
+function handleCloseMenu(){
+  const close = document.querySelector('.close__menu');
+  const showMenu = document.querySelector('.menu__mobile')
+  close.addEventListener('click', function(e) {
+    showMenu.classList.toggle('show__menu__mobile')
+  })
+}
 
 async function main() {
   const localData = {
@@ -236,6 +254,8 @@ async function main() {
   handlePrintAmountProducts(localData);
   handleShowCart();
   handleCloseCart();
+  handleShowMenu();
+  handleCloseMenu();
 
   window.onscroll = function(){
     if (document.documentElement.scrollTop > 20) {

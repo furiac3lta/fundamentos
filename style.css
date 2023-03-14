@@ -455,6 +455,34 @@ body::-webkit-scrollbar-thumb {
     top: 24px;
     right: 24px;
   }
+
+  .menu__mobile {
+    background-color: white;
+    position: fixed;
+    left: 110%;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    gap: 1rem;    
+    z-index: 3000;   
+    transition: all 1s ease;
+}
+.show__menu__mobile{
+  left: 0%;
+  display: flex;
+  transition: all 1s ease;
+  cursor: pointer;
+}
+#iconCloseCart{
+  position: absolute;
+  top: 12px;
+  right: 12px;
+}
   
 }
 }
