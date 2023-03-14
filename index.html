@@ -16,7 +16,7 @@
   <body>
     <header class="">
     <nav class="navbar container">
-      <a href="#home" class="logo">
+      <a href="#__home__" class="logo">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 48.92 56.48"
@@ -34,8 +34,8 @@
         <span>STORE</span>
       </a>
       <ul class="navbar__links">
-        <li>Home</li>
-        <li>Products</li>
+        <a href="#__home__">Home</a>
+        <a href="#__cards__">Products</a>
         <!-- <div class="navbar_icons">
         </div> -->
       </ul>
@@ -53,7 +53,7 @@
   </header>
     <div class="main">      
       <div class="container">
-        <section class="home">
+        <section class="home" id="__home__">
 
           <div class="home_header">
               <div class="home__div"></div>
@@ -70,7 +70,7 @@
                   the 2022 series, with
                   a modern design.</p>
               <p class="home_body-price">$14.00</p>
-              <a href="#products" class="home_body-btn">Show more</a>
+              <a href="#__cards__" class="home_body-btn">Show more</a>
           </div>
 
       </section>
@@ -97,7 +97,7 @@
         </div>
         </section>
       </div>
-      <div class="cards__container">
+      <div class="cards__container" id="__cards__">
         <div class="cards">
        
         </div>
@@ -116,13 +116,9 @@
         </div>
       </div>
      <div class="menu__mobile">
-        <i class="bx bx-x close__menu" id="iconCloseCart"></i>
-       
-          <div class="">
-            <a class="">Home</a>
-            <a class="">Products</a>
-          </div>
-        
+        <i class="bx bx-x close__menu" id="iconCloseCart"></i>            
+            <a href = "#__home__" >Home</a>
+            <a href = "#__cards__" >Products</a>     
         </div>
       </div>
     </div>

@@ -5,6 +5,7 @@
   margin: 0;
   box-sizing: border-box;
   font-family: "Roboto", sans-serif;
+  scroll-behavior: smooth;
 }
 body {
   background-color: hsl(206, 4%, 97%);
@@ -18,7 +19,7 @@ img {
   display: block;
   object-fit: contain;
 }
-
+ /* -------------------------------HEADER AND NAVBAR------------------------------- */ 
 header {
   height: 2rem;
   background-color: transparent;
@@ -163,7 +164,7 @@ svg {
   place-self: baseline;
   padding-top: 1rem;
 }
-
+ /* -------------------------------CARTS------------------------------- */ 
 .cart {
   position: fixed;
   width: 400px;
@@ -236,7 +237,7 @@ svg {
 .button__products p:nth-child(2) {
   font-size: 12px;
 }
-
+ /* -------------------------------PRODUCTS------------------------------- */ 
 .cards {
   overflow: hidden;
   display: grid;
@@ -304,7 +305,7 @@ svg {
   overflow-y: scroll;
 }
 .cart__products::-webkit-scrollbar {
-  width: 8px; /* width of the entire scrollbar */
+  width: 8px;
 }
 
 .cart__products::-webkit-scrollbar-thumb {
@@ -356,9 +357,14 @@ svg {
   flex-direction: row;
   justify-content: space-between;
 }
+
+/* -------------------------------FOOTER------------------------------- */
+
 footer {
   background-color: hsl(0, 0%, 90%);
   padding: 5rem 2rem;
+  margin-top: -2rem;
+  z-index: 7000;
 }
 .footer_info {
   display: flex;
@@ -400,7 +406,9 @@ body::-webkit-scrollbar-thumb {
   border-radius: 20px;
   border: 1px;
 }
-
+.menu__mobile{
+  color: hsl(0, 0%, 90%);
+}
 @media screen and (max-width: 700px) {
   .navbar__links {
     display: none;
@@ -422,6 +430,9 @@ body::-webkit-scrollbar-thumb {
   .header__images {
     width: 50%;
   }
+  .menu__mobile { 
+    color: hsl(0, 0%, 90%);
+}
 
 @media screen and (max-width: 700px){
 .home_body {
@@ -455,33 +466,32 @@ body::-webkit-scrollbar-thumb {
     top: 24px;
     right: 24px;
   }
-
-  .menu__mobile {
-    background-color: white;
+   .menu__mobile {    
+    color: black;
     position: fixed;
-    left: 110%;
+    width: 400px;
+    right: -100%;
     top: 0;
-    width: 100%;
     height: 100vh;
+    background-color: white;
+    z-index: 6000;
+    padding: 2rem 1rem 0rem 1rem;
+    transition: all 1s ease;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    font-size: 2rem;
-    gap: 1rem;    
-    z-index: 3000;   
-    transition: all 1s ease;
-}
+    justify-content: center;
+    font-size: 24px;
+    gap: 1rem;
+} 
 .show__menu__mobile{
-  left: 0%;
-  display: flex;
-  transition: all 1s ease;
-  cursor: pointer;
+  right: 0%;
+  
 }
 #iconCloseCart{
   position: absolute;
-  top: 12px;
-  right: 12px;
+  top: 24px;
+  right: 24px;
 }
   
 }

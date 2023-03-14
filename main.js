@@ -226,6 +226,7 @@ function handleShowMenu(){
   dashBoard.addEventListener('click', function(e) {
       
     showMenu.classList.toggle('show__menu__mobile')
+   
   })
 }
 
