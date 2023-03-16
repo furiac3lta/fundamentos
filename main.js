@@ -15,8 +15,9 @@ function printAllProducts(localData) {
   const products = document.querySelector(".cards");
   let html = "";
   for (const card of localData.products) {
+   
     html += `
-    <div class="card shadow hover:shadow-lg hover:shadow-red-500 shadow-red-500">
+    <div class="card shadow hover:shadow-lg hover:shadow-red-500 shadow-red-500 ${card.category}">
     <div class="card__img">
       <img src="${card.image}" class='hover:animate-ping duration 5s' alt="">
     </div>
@@ -42,11 +43,9 @@ function printAllProducts(localData) {
 
   products.innerHTML = html;
 }
-
 function handleShowCart() {
   const iconCartHtml = document.querySelector(".bx-shopping-bag");
   const cartHtml = document.querySelector(".cart");
-  console.log(iconCartHtml);
   iconCartHtml.addEventListener("click", function () {
     cartHtml.classList.toggle("cart__show");
   });
@@ -218,8 +217,6 @@ function handlePrintAmountProducts(localData) {
 function handleShowMenu() {
   const dashBoard = document.querySelector(".bxs-dashboard");
   const showMenu = document.querySelector(".menu__mobile");
-  console.log(showMenu);
-  console.log(dashBoard);
   dashBoard.addEventListener("click", function (e) {
     showMenu.classList.toggle("show__menu__mobile");
   });
@@ -245,15 +242,34 @@ function handleCloseMenu() {
 }
 function darkMode() {
   const darkMode = document.querySelector(".bx-moon");
-  const body = document.querySelector("body");
-  const head = document.querySelector('header')
+  const head = document.querySelector('header');
+  const body = document.querySelector('body');
   const menu = document.querySelector('.menu__mobile')
+  const cart = document.querySelector('.cart');
   
  darkMode.addEventListener("click", function (e) {
     body.classList.toggle("darkMode");
     head.classList.toggle("darkMode");
-    menu.classList.toggle("darkMode");    
+    menu.classList.toggle("darkMode");   
+    cart.classList.toggle("darkMode"); 
   });
+  if(body.classList.toggle("darkMode")){
+    localStorage.setItem('dark-mode', true);
+  }else{
+    localStorage.setItem('dark-mode', false);
+  }
+
+  if(localStorage.getItem('dark-mode') === 'true'){
+    body.classList.add('darkMode')
+    head.classList.add("darkMode");
+    menu.classList.add("darkMode");   
+    cart.classList.add("darkMode");  
+  }else{
+    body.classList.remove('darkMode')
+    head.classList.remove("darkMode");
+    menu.classList.remove("darkMode"); 
+    cart.classList.remove("darkMode"); 
+  }
 }
 
 async function main() {
@@ -277,5 +293,6 @@ async function main() {
   handleCloseMenu();
   scroll();
   darkMode();
+ 
 }
 main();
