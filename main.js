@@ -247,20 +247,16 @@ function darkMode() {
   const menu = document.querySelector('.menu__mobile');
   const cart = document.querySelector('.cart');
   
- darkMode.addEventListener("click", function (e) {
+ darkMode.addEventListener("click", function () {
     body.classList.toggle("darkMode");
     head.classList.toggle("darkMode");
     menu.classList.toggle("darkMode");   
     cart.classList.toggle("darkMode"); 
   });
-  if(body.classList.contains("darkMode")){
-    localStorage.setItem('dark-mode', true);
-  }else{
-    localStorage.setItem('dark-mode', false);
-  }
+ 
 
-  if(localStorage.getItem('dark-mode') == 'true'){
-    body.classList.add('darkMode')
+  if(localStorage.getItem('dark-mode') !== 'true'){
+    body.classList.add('darkMode');
     head.classList.add("darkMode");
     menu.classList.add("darkMode"); 
     cart.classList.add("darkMode"); 
@@ -269,6 +265,11 @@ function darkMode() {
     head.classList.remove("darkMode");
     menu.classList.remove("darkMode");   
     cart.classList.remove("darkMode"); 
+  }
+  if(body.classList.contains("darkMode")){
+    localStorage.setItem('dark-mode', true);
+  }else{
+    localStorage.setItem('dark-mode', false);
   }
 }
 
