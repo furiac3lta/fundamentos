@@ -497,6 +497,11 @@ body::-webkit-scrollbar-thumb {
   top: 24px;
   right: 24px;
 }
+.darkMode{
+  background-color:  hsl(0, 0%, 28%);
+  color: rgb(132, 128, 128);
+}
+
   
 }
 }
