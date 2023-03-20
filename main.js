@@ -15,9 +15,10 @@ function printAllProducts(localData) {
   const products = document.querySelector(".cards");
   let html = "";
   for (const card of localData.products) {
-   
     html += `
-    <div class="card shadow hover:shadow-lg hover:shadow-red-500 shadow-red-500 ${card.category}">
+    <div class="card shadow hover:shadow-lg hover:shadow-red-500 shadow-red-500 ${
+      card.category
+    }">
     <div class="card__img">
       <img src="${card.image}" class='hover:animate-ping duration 5s' alt="">
     </div>
@@ -92,7 +93,7 @@ function printProductsInCart(localData) {
   for (const product in localData.cart) {
     const { quantity, price, name, image, id, amount } =
       localData.cart[product];
-      let total = amount*price
+    let total = amount * price;
     html += `
         <div class='cart__product'>         
             <div class='cart__product--img'>
@@ -242,38 +243,73 @@ function handleCloseMenu() {
 }
 function darkMode() {
   const darkMode = document.querySelector(".bx-moon");
-  const head = document.querySelector('header');
-  const body = document.querySelector('body');
-  const menu = document.querySelector('.menu__mobile');
-  const cart = document.querySelector('.cart');
-  
- darkMode.addEventListener("click", function () {
+  const head = document.querySelector("header");
+  const body = document.querySelector("body");
+  const menu = document.querySelector(".menu__mobile");
+  const cart = document.querySelector(".cart");
+
+  darkMode.addEventListener("click", function () {
     body.classList.toggle("darkMode");
     head.classList.toggle("darkMode");
-    menu.classList.toggle("darkMode");   
-    cart.classList.toggle("darkMode"); 
+    menu.classList.toggle("darkMode");
+    cart.classList.toggle("darkMode");
   });
- 
 
-  if(localStorage.getItem('dark-mode') !== 'true'){
-    body.classList.add('darkMode');
+  if (localStorage.getItem("dark-mode") !== "true") {
+    body.classList.add("darkMode");
     head.classList.add("darkMode");
-    menu.classList.add("darkMode"); 
-    cart.classList.add("darkMode"); 
-  }else{
-    body.classList.remove('darkMode')
+    menu.classList.add("darkMode");
+    cart.classList.add("darkMode");
+  } else {
+    body.classList.remove("darkMode");
     head.classList.remove("darkMode");
-    menu.classList.remove("darkMode");   
-    cart.classList.remove("darkMode"); 
+    menu.classList.remove("darkMode");
+    cart.classList.remove("darkMode");
   }
-  if(body.classList.contains("darkMode")){
-    localStorage.setItem('dark-mode', true);
-  }else{
-    localStorage.setItem('dark-mode', false);
+  if (body.classList.contains("darkMode")) {
+    localStorage.setItem("dark-mode", true);
+  } else {
+    localStorage.setItem("dark-mode", false);
   }
 }
+function handleFilter() {
+  let content = document.querySelectorAll(
+    ".button__container .button__products"
+  );
+  content.forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      if (e.target.classList.contains("button__products")) {
+        content.forEach((btn) => btn.classList.remove("active"));
+        e.target.classList.add("active");
+      }
+    });
+  });
+  mixitup(".cards", {
+    selectors: {
+      target: ".card",
+    },
+    animation: {
+      duration: 300,
+    },
+  });
+}
+function printFilter(localData){
 
+  const categories = localData.products.reduce((acum, curr) => {
+    acum[curr.category] = acum[curr.category] + 1 || 1;
+    return acum;
+  }, {});
+  
+  let html =
+    '<div  class=" button__products hover:bg-slate-400 transition duration-700 ease-in-out" data-filter="all">Show All</div>'
+  for (const key in categories) {
+    html += `<div class="button__products hover:bg-slate-400 transition duration-700 ease-in-out" data-filter=".${key}">
+ ${key}  ${categories[key]} units </div>`
+  }
 
+  document.querySelector(".button__container").innerHTML = html;
+  handleFilter();
+}
 async function main() {
   const localData = {
     products:
@@ -295,26 +331,9 @@ async function main() {
   handleCloseMenu();
   scroll();
   darkMode();
+ printFilter(localData)
 
- let content = document.querySelectorAll('.button__container .button__products');
- content.forEach((btn) =>{
-  btn.addEventListener('click', (e) =>{
-   if(e.target.classList.contains('button__products'))
-   {
-    content.forEach(btn => btn.classList.remove('active'));
-    e.target.classList.add('active')
-   }
-  })
- })
+ /*  const products = await getAllProducts(); */
 
- mixitup('.cards', {
-  selectors: {
-      target: '.card'
-  },
-  animation: {
-      duration: 300
-  }
-});
- 
 }
 main();

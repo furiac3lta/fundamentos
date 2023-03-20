@@ -240,7 +240,7 @@ svg {
 .active{
   background-color: hsl(354, 78%, 60%);
   color: #fff;
-  transition: all 0.5s ease;
+  transition: all 0.3s ease;
 }
  /* -------------------------------PRODUCTS------------------------------- */ 
 .cards {
