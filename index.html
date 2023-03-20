@@ -12,13 +12,13 @@
     <link rel="icon" type="image/svg+xml" href="/images/favicon.png" />
     <link rel="stylesheet" href="style.css" />
     <script src="https://cdn.tailwindcss.com"></script>
-    
+  
    <script src="./main.js" defer></script>
    
   </head>
   <body>
     <header class="">
-    <nav class="navbar container">
+    <nav class="navbar contain">
       <a href="#__home__" class="logo">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -53,7 +53,7 @@
     </nav>
   </header>
     <div class="main">      
-      <div class="container">
+      <div class="contain">
         <section class="home" id="__home__">
 
           <div class="home_header">
@@ -76,23 +76,23 @@
 
       </section>
 
-        <section class="section__body ">
-        <div class="button__container" id="content">
-          <div class=" button__products hover:bg-slate-400 transition duration-700 ease-in-out">
-            <p class="all">Show all</p>
-            <p> Show all products</p>
+        <section class="section__body contain">
+        <div class="button__container container" id="content">
+          <div  class=" button__products hover:bg-slate-400 transition duration-700 ease-in-out" data-filter="all">
+            <p class="text">Show all</p>
+            <p></p>
           </div>
-          <div class=" button__products hover:bg-slate-400 transition duration-700 ease-in-out">
-             <p class="shirt">Shirts</p>
-            <p>7 products</p>
+          <div class="button__products hover:bg-slate-400 transition duration-700 ease-in-out" data-filter=".shirt">
+             <p class="text">Shirt</p>
+            <p></p>
           </div>
-          <div class=" button__products hover:bg-slate-400 transition duration-700 ease-in-out"> 
-            <p class="hoddie">Hoddie</p>
-            <p>6 products</p>
+          <div  class=" button__products hover:bg-slate-400 transition duration-700 ease-in-out" data-filter=".hoddie"> 
+            <p class="text">Hoddie</p>
+            <p></p>
           </div>
-          <div class=" button__products hover:bg-slate-400 transition duration-700 ease-in-out"> 
-            <p class="sweater">Sweater</p>
-            <p>5 products</p>
+          <div  class=" button__products hover:bg-slate-400 transition duration-700 ease-in-out" data-filter=".sweater"> 
+            <p class="text">Sweater</p>
+            <p></p>
           </div>
           
         </div>
@@ -124,8 +124,11 @@
       </div>
     </div>
   </div>
+  <div class="modal">
+    
+  </div>
     <footer>
-      <section class="content_footer container">
+      <section class="content_footer contain">
         <div class="footer_info">
           <h3 class="footer_info-title">Our information</h3>
           <ul><li>
@@ -165,5 +168,6 @@
         </b>
       </p>
     </footer>
+    <script src="./mixitup.min.js"></script>
   </body>
 </html>

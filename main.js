@@ -273,6 +273,7 @@ function darkMode() {
   }
 }
 
+
 async function main() {
   const localData = {
     products:
@@ -294,6 +295,26 @@ async function main() {
   handleCloseMenu();
   scroll();
   darkMode();
+
+ let content = document.querySelectorAll('.button__container .button__products');
+ content.forEach((btn) =>{
+  btn.addEventListener('click', (e) =>{
+   if(e.target.classList.contains('button__products'))
+   {
+    content.forEach(btn => btn.classList.remove('active'));
+    e.target.classList.add('active')
+   }
+  })
+ })
+
+ mixitup('.cards', {
+  selectors: {
+      target: '.card'
+  },
+  animation: {
+      duration: 300
+  }
+});
  
 }
 main();

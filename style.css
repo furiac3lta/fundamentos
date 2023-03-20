@@ -107,7 +107,7 @@ svg {
   border-radius: 50%;
   font-weight: 700;
 }
-.container {
+.contain {
   max-width: 1024px;
   margin: auto;
 }
@@ -236,6 +236,11 @@ svg {
 }
 .button__products p:nth-child(2) {
   font-size: 12px;
+}
+.active{
+  background-color: hsl(354, 78%, 60%);
+  color: #fff;
+  transition: all 0.5s ease;
 }
  /* -------------------------------PRODUCTS------------------------------- */ 
 .cards {
